@@ -4,8 +4,10 @@ package beans;
 import model.Pessoa;
 import util.UtilDate;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +16,15 @@ import java.util.List;
 @ViewScoped
 public class PessoaBean {
 
-    public Pessoa pessoa = new Pessoa();
-    public List<Pessoa> pessoas = new ArrayList<>();
+    public Pessoa pessoa;
+    public List<Pessoa> pessoas;
 
+    @PostConstruct
+    public void inicializar() {
+        pessoa = new Pessoa();
+        pessoas = new ArrayList<>();
+        pessoa.setNascimento(new Date());
+    }
 
     public void adicionar() {
         pessoas.add(pessoa);
@@ -24,13 +32,12 @@ public class PessoaBean {
     }
 
     public void limpar() {
-       pessoa = new Pessoa();
+        pessoa = new Pessoa();
     }
 
     public String converteData(Date data) {
-       return UtilDate.converteDataParaString(data);
+        return UtilDate.converteDataParaString(data);
     }
-
 
 
     public Pessoa getPessoa() {

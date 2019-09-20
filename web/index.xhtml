@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <link href="#{request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"></link>
+
     <title>Cadastro de Pessoas</title>
 
 </h:head>
@@ -21,10 +22,10 @@
             <h:outputLabel for="email">E-mail: </h:outputLabel>
             <h:inputText id="email" value="#{pessoaBean.pessoa.email}" placeholder="Informe seu e-mail"/>
 
-            <h:outputLabel for="nascimento">Nascimento:</h:outputLabel>
+            <h:outputLabel for="nascimento">Nascimento: </h:outputLabel>
             <h:inputText id="nascimento" value="#{pessoaBean.pessoa.nascimento}" type="date"
                          placeholder="Informe sua data de nascimento">
-                <f:convertDateTime type="date" pattern="dd/MM/yyyy"  timeZone="GMT-3"/>
+                <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
             </h:inputText>
 
 
@@ -60,5 +61,6 @@
         </h:dataTable>
 
     </div>
+
 </h:body>
 </html>
