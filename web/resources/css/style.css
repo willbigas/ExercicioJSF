@@ -37,11 +37,11 @@ input:hover, input:focus {
     font-size: 15px;
 }
 
-#cadastrar {
+.cadastrar {
     background-color: #4caf50;
 }
 
-#limpar {
+.limpar {
     background-color: #00a6ff;
 }
 

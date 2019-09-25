@@ -16,13 +16,13 @@
     <div class="container">
         <h1>Cadastro de Pessoas</h1>
         <h:form>
-            <h:outputLabel for="nome">Nome: </h:outputLabel>
+            <h:outputLabel for="nome" value="Nome: "/>
             <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" placeholder="Informe seu nome"/>
 
-            <h:outputLabel for="email">E-mail: </h:outputLabel>
+            <h:outputLabel for="email" value="Email: "/>
             <h:inputText id="email" value="#{pessoaBean.pessoa.email}" placeholder="Informe seu e-mail"/>
 
-            <h:outputLabel for="nascimento">Nascimento: </h:outputLabel>
+            <h:outputLabel for="nascimento" value="Nascimento: "/>
             <h:inputText id="nascimento" value="#{pessoaBean.pessoa.nascimento}" type="date"
                          placeholder="Informe sua data de nascimento">
                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
@@ -33,8 +33,8 @@
             <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" type="numeric"
                          placeholder="Informe sua idade"/>
 
-            <h:commandButton id="cadastrar" action="#{pessoaBean.adicionar()}" value="Cadastrar"/>
-            <h:commandButton id="limpar" type="reset" action="#{pessoaBean.limpar()}" value="Limpar"/>
+            <h:commandButton styleClass="cadastrar" action="#{pessoaBean.adicionar()}" value="Cadastrar"/>
+            <h:commandButton styleClass="limpar" action="#{pessoaBean.limpar()}" value="Limpar"/>
         </h:form>
 
         <h:dataTable value="#{pessoaBean.pessoas}" var="p">
