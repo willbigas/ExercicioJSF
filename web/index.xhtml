@@ -16,7 +16,13 @@
         <h1>Cadastro de Pessoas</h1>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
-            <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" pt:placeholder="Informe seu nome"/>
+            <h:inputText
+                    id="nome"
+                    required="true"
+                    requiredMessage="Nome deve ser preenchido"
+                    value="#{pessoaBean.pessoa.nome}"
+                    pt:placeholder="Informe seu nome"
+            />
 
             <h:outputLabel for="email" value="Email: "/>
             <h:inputText id="email" value="#{pessoaBean.pessoa.email}" pt:placeholder="Informe seu e-mail"/>
