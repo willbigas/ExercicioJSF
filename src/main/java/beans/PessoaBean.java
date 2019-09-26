@@ -20,7 +20,7 @@ public class PessoaBean {
     public List<Pessoa> pessoas;
 
     @PostConstruct
-    public void inicializar() {
+    public void init() {
         pessoa = new Pessoa();
         pessoas = new ArrayList<>();
         pessoa.setNascimento(new Date());

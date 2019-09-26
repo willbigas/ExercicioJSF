@@ -4,34 +4,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-    <link href="#{request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"></link>
-
+    <h:outputStylesheet library="css" name="style.css"/>
     <title>Cadastro de Pessoas</title>
 
 </h:head>
 <h:body>
-
     <div class="container">
         <h1>Cadastro de Pessoas</h1>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
-            <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" placeholder="Informe seu nome"/>
+            <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" pt:placeholder="Informe seu nome"/>
 
             <h:outputLabel for="email" value="Email: "/>
-            <h:inputText id="email" value="#{pessoaBean.pessoa.email}" placeholder="Informe seu e-mail"/>
+            <h:inputText id="email" value="#{pessoaBean.pessoa.email}" pt:placeholder="Informe seu e-mail"/>
 
             <h:outputLabel for="nascimento" value="Nascimento: "/>
             <h:inputText id="nascimento" value="#{pessoaBean.pessoa.nascimento}" type="date"
-                         placeholder="Informe sua data de nascimento">
+                         pt:placeholder="Informe sua data de nascimento">
                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
             </h:inputText>
 
 
             <h:outputLabel for="idade">Idade:</h:outputLabel>
             <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" type="numeric"
-                         placeholder="Informe sua idade"/>
+                         pt:placeholder="Informe sua idade"/>
 
             <h:commandButton styleClass="cadastrar" action="#{pessoaBean.adicionar()}" value="Cadastrar"/>
             <h:commandButton styleClass="limpar" action="#{pessoaBean.limpar()}" value="Limpar"/>
