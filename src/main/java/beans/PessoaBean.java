@@ -1,6 +1,7 @@
 package beans;
 
 
+import dao.PessoaDao;
 import model.Pessoa;
 import util.UtilDate;
 
@@ -8,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,19 +17,30 @@ import java.util.List;
 @ViewScoped
 public class PessoaBean implements Serializable {
 
-    public Pessoa pessoa;
-    public List<Pessoa> pessoas;
+    private Pessoa pessoa;
+    private List<Pessoa> pessoas;
+    private PessoaDao pessoaDao;
 
     @PostConstruct
     public void init() {
         pessoa = new Pessoa();
+        pessoaDao = new PessoaDao();
         pessoas = new ArrayList<>();
+        atualizaListagem();
+
     }
 
     public void adicionar() {
         pessoas.add(pessoa);
+        pessoaDao.salvar(pessoa);
         limpar();
+        atualizaListagem();
     }
+
+    public void atualizaListagem() {
+        pessoas = pessoaDao.listarTodos();
+    }
+
 
     public void limpar() {
         pessoa = new Pessoa();
@@ -55,7 +66,6 @@ public class PessoaBean implements Serializable {
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
-
 
 
 }
