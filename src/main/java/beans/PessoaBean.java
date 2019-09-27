@@ -7,6 +7,7 @@ import util.UtilDate;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class PessoaBean {
+public class PessoaBean implements Serializable {
 
     public Pessoa pessoa;
     public List<Pessoa> pessoas;
@@ -23,7 +24,6 @@ public class PessoaBean {
     public void init() {
         pessoa = new Pessoa();
         pessoas = new ArrayList<>();
-        pessoa.setNascimento(new Date());
     }
 
     public void adicionar() {
@@ -55,6 +55,7 @@ public class PessoaBean {
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
+
 
 
 }

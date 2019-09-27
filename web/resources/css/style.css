@@ -38,6 +38,13 @@ input:hover, input:focus {
     font-size: 15px;
 }
 
+input[type="submit"], input[type="reset"] {
+    width: 100px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    color: white;
+}
+
 .cadastrar {
     background-color: #4caf50;
 }
@@ -78,4 +85,9 @@ table th {
 th, td {
     padding: 15px;
     border-bottom: 1px solid #ddd;
+}
+
+
+.errorForm {
+    color: red;
 }

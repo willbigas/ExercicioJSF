@@ -13,33 +13,40 @@
 </h:head>
 <h:body>
     <div class="container">
+
         <h1>Cadastro de Pessoas</h1>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
+            <h:message for="nome" errorClass="errorForm"/>
             <h:inputText
                     id="nome"
                     required="true"
-                    requiredMessage="Nome deve ser preenchido"
+                    requiredMessage="Campo com preenchimento obrigatório"
                     value="#{pessoaBean.pessoa.nome}"
                     pt:placeholder="Informe seu nome"
             />
-
             <h:outputLabel for="email" value="Email: "/>
-            <h:inputText id="email" value="#{pessoaBean.pessoa.email}" pt:placeholder="Informe seu e-mail"/>
+            <h:message for="email" errorClass="errorForm"/>
+            <h:inputText id="email"
+                         required="true"
+                         requiredMessage="Campo com preenchimento obrigatório"
+                         value="#{pessoaBean.pessoa.email}"
+                         pt:placeholder="Informe seu e-mail"/>
 
             <h:outputLabel for="nascimento" value="Nascimento: "/>
-            <h:inputText id="nascimento" value="#{pessoaBean.pessoa.nascimento}" type="date"
+            <h:message for="nascimento" errorClass="errorForm"/>
+            <h:inputText id="nascimento"
+                         required="true"
+                         requiredMessage="Campo com preenchimento obrigatório"
+                         converterMessage="Data no formato invalido. Use: dd/mm/aaaa"
+                         value="#{pessoaBean.pessoa.nascimento}"
+                         type="date"
                          pt:placeholder="Informe sua data de nascimento">
-                <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+                <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
             </h:inputText>
 
-
-            <h:outputLabel for="idade">Idade:</h:outputLabel>
-            <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" type="numeric"
-                         pt:placeholder="Informe sua idade"/>
-
             <h:commandButton styleClass="cadastrar" action="#{pessoaBean.adicionar()}" value="Cadastrar"/>
-            <h:commandButton styleClass="limpar" action="#{pessoaBean.limpar()}" value="Limpar"/>
+            <h:commandButton styleClass="limpar" type="reset" action="#{pessoaBean.limpar()}" value="Limpar"/>
         </h:form>
 
         <h:dataTable value="#{pessoaBean.pessoas}" var="p">
