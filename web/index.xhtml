@@ -45,8 +45,16 @@
                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
             </h:inputText>
 
-            <h:commandButton styleClass="cadastrar" action="#{pessoaBean.adicionar()}" value="Cadastrar"/>
-            <h:commandButton styleClass="limpar" type="reset" action="#{pessoaBean.limpar()}" value="Limpar"/>
+            <h:commandButton
+                    styleClass="limpar"
+                    type="reset"
+                    action="#{pessoaBean.limpar()}"
+                    value="Limpar"/>
+            <h:commandButton
+                    styleClass="cadastrar"
+                    action="#{pessoaBean.adicionar()}"
+                    value="Cadastrar"/>
+
         </h:form>
 
         <h:dataTable value="#{pessoaBean.pessoas}" var="p">

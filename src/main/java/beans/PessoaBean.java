@@ -2,12 +2,14 @@ package beans;
 
 
 import dao.PessoaDao;
+import interfaces.IBaseDao;
 import model.Pessoa;
 import util.UtilDate;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +21,10 @@ public class PessoaBean implements Serializable {
 
     private Pessoa pessoa;
     private List<Pessoa> pessoas;
-    private PessoaDao pessoaDao;
+    private IBaseDao<Pessoa> pessoaDao;
+
+//    @Inject
+
 
     @PostConstruct
     public void init() {
@@ -38,7 +43,7 @@ public class PessoaBean implements Serializable {
     }
 
     public void atualizaListagem() {
-        pessoas = pessoaDao.listarTodos();
+        pessoas = pessoaDao.buscarTodos();
     }
 
 

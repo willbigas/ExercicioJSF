@@ -10,11 +10,11 @@ import java.util.Objects;
 
 
 @Entity
-public class Pessoa {
+public class Pessoa implements IBaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
     private String email;
     @Temporal(TemporalType.DATE)
@@ -22,12 +22,13 @@ public class Pessoa {
     @Transient
     private Integer idade;
 
-    public Integer getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Long codigo) {
+        this.id = codigo;
+
     }
 
     public String getNome() {
@@ -90,4 +91,5 @@ public class Pessoa {
                 ", idade=" + idade +
                 '}';
     }
+
 }
