@@ -7,8 +7,10 @@ import model.Pessoa;
 import util.UtilDate;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,26 +25,39 @@ public class PessoaBean implements Serializable {
     private List<Pessoa> pessoas;
     private IBaseDao<Pessoa> pessoaDao;
 
-//    @Inject
-
-
     @PostConstruct
     public void init() {
         pessoa = new Pessoa();
         pessoaDao = new PessoaDao();
         pessoas = new ArrayList<>();
-        atualizaListagem();
+        atualizar();
 
     }
 
-    public void adicionar() {
-        pessoas.add(pessoa);
-        pessoaDao.salvar(pessoa);
+    public void salvar() {
+        if (pessoa.getId() == null) {
+            pessoaDao.salvar(pessoa);
+        } else {
+            pessoaDao.alterar(pessoa);
+        }
         limpar();
-        atualizaListagem();
+        atualizar();
     }
 
-    public void atualizaListagem() {
+    public void alterar() {
+    }
+
+    public void remover() {
+        pessoaDao.excluir(pessoa);
+        atualizar();
+        limpar();
+        FacesMessage mensagem = new FacesMessage();
+        mensagem.setSummary("Pessoa excluida com sucesso!");
+        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    }
+
+    public void atualizar() {
         pessoas = pessoaDao.buscarTodos();
     }
 

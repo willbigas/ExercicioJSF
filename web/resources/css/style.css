@@ -45,6 +45,11 @@ input[type="submit"], input[type="reset"] {
     color: white;
 }
 
+input[type="image"] {
+    margin: 5px;
+    width: 50px;
+}
+
 .cadastrar {
     background-color: #4caf50;
 }
@@ -87,6 +92,19 @@ th, td {
     border-bottom: 1px solid #ddd;
 }
 
+.coluna-acoes {
+    width: 150px;
+}
+
+
+.mensagemInfo {
+    list-style: none;
+    margin-left: -40px;
+    padding-left: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    line-height: 2;
+}
 
 .errorForm {
     color: red;

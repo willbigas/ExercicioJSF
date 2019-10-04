@@ -14,6 +14,8 @@
 <h:body>
     <div class="container">
 
+        <h:messages globalOnly="true" infoClass="mensagemInfo"/>
+
         <h1>Cadastro de Pessoas</h1>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
@@ -52,35 +54,55 @@
                     value="Limpar"/>
             <h:commandButton
                     styleClass="cadastrar"
-                    action="#{pessoaBean.adicionar()}"
-                    value="Cadastrar"/>
+                    action="#{pessoaBean.salvar()}"
+                    value="Salvar"/>
 
         </h:form>
 
-        <h:dataTable value="#{pessoaBean.pessoas}" var="p">
+        <h:form>
+            <h:dataTable
+                    value="#{pessoaBean.pessoas}"
+                    var="p">
 
-            <h:column>
-                <f:facet name="header">Nome</f:facet>
-                #{p.nome}
-            </h:column>
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    <h:outputText value="#{p.nome}"/>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                #{p.email}
-            </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    <h:outputText value="#{p.email}"/>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">Nascimento</f:facet>
-                #{pessoaBean.converteData(p.nascimento)}
-            </h:column>
+                <h:column>
+                    <f:facet name="header">Nascimento</f:facet>
+                    <h:outputText value="#{pessoaBean.converteData(p.nascimento)}"/>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">Idade</f:facet>
-                #{p.idade}
+                <h:column>
+                    <f:facet name="header">Idade</f:facet>
+                    <h:outputText value="#{p.idade}"/>
+                </h:column>
+                <h:column headerClass="coluna-acoes">
+                    <f:facet name="header">Acões</f:facet>
+                    <h:commandButton
+                            image="resources/imagens/edit-32x32.png">
+                    <f:setPropertyActionListener
+                            target="#{pessoaBean.pessoa}"
+                            value="#{p}"/>
+                </h:commandButton>
+                <h:commandButton
+                        image="resources/imagens/remove-32x32.png"
+                        action="#{pessoaBean.remover}">
+                    <f:setPropertyActionListener
+                            target="#{pessoaBean.pessoa}"
+                            value="#{p}"/>
+                </h:commandButton>
             </h:column>
         </h:dataTable>
+    </h:form>
 
-    </div>
+</div>
 
 </h:body>
-</html>
+        </html>
