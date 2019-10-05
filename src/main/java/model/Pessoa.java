@@ -21,6 +21,8 @@ public class Pessoa implements IBaseModel {
     private Date nascimento;
     @Transient
     private Integer idade;
+    @OneToOne
+    private Profissao profissao;
 
     public Long getId() {
         return this.id;

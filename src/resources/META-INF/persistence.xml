@@ -8,6 +8,7 @@
 
         <!-- Mapeamento de classes -->
         <class>model.Pessoa</class>
+        <class>model.Profissao</class>
 
 
         <properties>
