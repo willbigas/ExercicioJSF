@@ -1,6 +1,7 @@
 package beans;
 
 
+import beans.util.Mensagens;
 import dao.PessoaDao;
 import interfaces.IBaseDao;
 import model.Pessoa;
@@ -37,8 +38,10 @@ public class PessoaBean implements Serializable {
     public void salvar() {
         if (pessoa.getId() == null) {
             pessoaDao.salvar(pessoa);
+            Mensagens.sucesso("Pessoa cadastrada com sucesso");
         } else {
             pessoaDao.alterar(pessoa);
+            Mensagens.sucesso("Pessoa alterada com sucesso!");
         }
         limpar();
         atualizar();
@@ -51,10 +54,7 @@ public class PessoaBean implements Serializable {
         pessoaDao.excluir(pessoa);
         atualizar();
         limpar();
-        FacesMessage mensagem = new FacesMessage();
-        mensagem.setSummary("Pessoa excluida com sucesso!");
-        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        Mensagens.sucesso("Pessoa excluida com sucesso!");
     }
 
     public void atualizar() {

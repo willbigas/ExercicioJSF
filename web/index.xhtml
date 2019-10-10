@@ -31,6 +31,7 @@
             <h:message for="email" errorClass="errorForm"/>
             <h:inputText id="email"
                          required="true"
+                         validator="emailValidator"
                          requiredMessage="Campo com preenchimento obrigatório"
                          value="#{pessoaBean.pessoa.email}"
                          pt:placeholder="Informe seu e-mail"/>
