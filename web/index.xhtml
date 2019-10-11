@@ -47,6 +47,11 @@
                          pt:placeholder="Informe sua data de nascimento">
                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
             </h:inputText>
+            <h:outputLabel for="profissao" value="Profissão"/>
+            <h:selectOneMenu id="profissao" value="#{pessoaBean.pessoa.profissao}">
+                <f:selectItem noSelectionOption="true" itemLabel="Selecione..."/>
+                <f:selectItems value="#{pessoaBean.profissaos}" var="p" itemLabel="#{p.descricao}"/>
+            </h:selectOneMenu>
 
             <h:commandButton
                     styleClass="limpar"

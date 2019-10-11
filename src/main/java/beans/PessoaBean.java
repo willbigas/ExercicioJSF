@@ -3,8 +3,10 @@ package beans;
 
 import beans.util.Mensagens;
 import dao.PessoaDao;
+import dao.ProfissaoDao;
 import interfaces.IBaseDao;
 import model.Pessoa;
+import model.Profissao;
 import util.UtilDate;
 
 import javax.annotation.PostConstruct;
@@ -24,13 +26,17 @@ public class PessoaBean implements Serializable {
 
     private Pessoa pessoa;
     private List<Pessoa> pessoas;
+    private List<Profissao> profissaos;
     private IBaseDao<Pessoa> pessoaDao;
+    private IBaseDao<Profissao> profissaoDao;
 
     @PostConstruct
     public void init() {
         pessoa = new Pessoa();
         pessoaDao = new PessoaDao();
+        profissaoDao = new ProfissaoDao();
         pessoas = new ArrayList<>();
+        profissaos = new ArrayList<>();
         atualizar();
 
     }
@@ -59,6 +65,7 @@ public class PessoaBean implements Serializable {
 
     public void atualizar() {
         pessoas = pessoaDao.buscarTodos();
+        profissaos = profissaoDao.buscarTodos();
     }
 
 
@@ -87,5 +94,11 @@ public class PessoaBean implements Serializable {
         this.pessoas = pessoas;
     }
 
+    public List<Profissao> getProfissaos() {
+        return profissaos;
+    }
 
+    public void setProfissaos(List<Profissao> profissaos) {
+        this.profissaos = profissaos;
+    }
 }

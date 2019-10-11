@@ -70,6 +70,14 @@ public class Pessoa implements IBaseModel {
     }
 
 
+    public Profissao getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(Profissao profissao) {
+        this.profissao = profissao;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
