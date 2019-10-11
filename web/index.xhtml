@@ -18,6 +18,11 @@
 
         <h1>Cadastro de Pessoas</h1>
         <h:form>
+            <h:outputLabel for="profissao" value="Profissão:"/>
+            <h:selectOneMenu id="profissao" value="#{pessoaBean.pessoa.profissao}">
+                <f:selectItem noSelectionOption="true" itemLabel="Selecione..."/>
+                <f:selectItems value="#{pessoaBean.profissaos}" var="pr" itemLabel="#{pr.descricao}"/>
+            </h:selectOneMenu> <br/>
             <h:outputLabel for="nome" value="Nome: "/>
             <h:message for="nome" errorClass="errorForm"/>
             <h:inputText
@@ -47,12 +52,6 @@
                          pt:placeholder="Informe sua data de nascimento">
                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
             </h:inputText>
-            <h:outputLabel for="profissao" value="Profissão"/>
-            <h:selectOneMenu id="profissao" value="#{pessoaBean.pessoa.profissao}">
-                <f:selectItem noSelectionOption="true" itemLabel="Selecione..."/>
-                <f:selectItems value="#{pessoaBean.profissaos}" var="p" itemLabel="#{p.descricao}"/>
-            </h:selectOneMenu>
-
             <h:commandButton
                     styleClass="limpar"
                     type="reset"
@@ -89,6 +88,12 @@
                     <f:facet name="header">Idade</f:facet>
                     <h:outputText value="#{p.idade}"/>
                 </h:column>
+
+                <h:column>
+                    <f:facet name="header">Profissão</f:facet>
+                    <h:outputText value="#{p.profissao.descricao}"/>
+                </h:column>
+
                 <h:column headerClass="coluna-acoes">
                     <f:facet name="header">Acões</f:facet>
                     <h:commandButton

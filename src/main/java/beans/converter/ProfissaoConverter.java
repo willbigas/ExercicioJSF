@@ -23,7 +23,8 @@ public class ProfissaoConverter implements Converter {
         if (profissaoDao.buscarPorid(Long.valueOf(s)) == null) {
             return null;
         } else {
-            return profissaoDao.buscarPorid(Long.valueOf(s));
+            Profissao profissao = (Profissao) profissaoDao.buscarPorid(Long.valueOf(s));
+            return profissao;
         }
 
     }
@@ -35,7 +36,7 @@ public class ProfissaoConverter implements Converter {
         if (profissao == null) {
             return null;
         } else {
-            return profissao.getDescricao();
+            return profissao.getId().toString();
         }
     }
 }
