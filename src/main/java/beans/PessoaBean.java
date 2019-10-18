@@ -73,11 +73,6 @@ public class PessoaBean implements Serializable {
         pessoa = new Pessoa();
     }
 
-    public String converteData(Date data) {
-        return UtilDate.converteDataParaString(data);
-    }
-
-
     public Pessoa getPessoa() {
         return pessoa;
     }
