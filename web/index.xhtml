@@ -48,8 +48,8 @@
 
                 <p:outputLabel for="nascimento" value="Nascimento: "/>
                 <p:calendar id="nascimento"
-                            pattern="dd/MM/yyyy HH:mm"
-                            timeZone="America/Sao_Paulo"
+                            pattern="dd/MM/yyyy"
+                            timeZone="#{initParam.timezone}"
                             mask="true"
                             locale="pt_BR"
                             required="true"
