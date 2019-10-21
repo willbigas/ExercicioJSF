@@ -48,10 +48,9 @@
 
                 <p:outputLabel for="nascimento" value="Nascimento: "/>
                 <p:calendar id="nascimento"
+                            pattern="dd/MM/yyyy HH:mm"
                             timeZone="America/Sao_Paulo"
-                            pattern="dd/MM/yyyy"
                             mask="true"
-                            effect="fold"
                             locale="pt_BR"
                             required="true"
                             requiredMessage="Nascimento deve ser preenchido"
@@ -96,7 +95,7 @@
 
             <p:column headerText="Nascimento">
                 <h:outputText value="#{p.nascimento}">
-                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:outputText>
             </p:column>
 
