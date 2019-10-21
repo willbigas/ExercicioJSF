@@ -9,12 +9,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class ProfissaoBean {
+public class ProfissaoBean  implements Serializable {
 
     public Profissao profissao;
     private List<Profissao> profissaos;

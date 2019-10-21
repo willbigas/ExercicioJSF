@@ -5,76 +5,88 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <h:outputStylesheet library="css" name="style.css"/>
     <title>Cadastro de Profissões</title>
-
 </h:head>
 <h:body>
-    <div class="container">
 
-        <h:messages globalOnly="true" infoClass="mensagemInfo"/>
+    <p:growl sticky="true"/>
 
-        <h1>Cadastro de Profissões</h1>
-        <h:form>
-            <h:outputLabel for="descricao" value="Descricao: "/>
-            <h:message for="descricao" errorClass="errorForm"/>
-            <h:inputText
-                    id="descricao"
-                    required="true"
-                    requiredMessage="Campo com preenchimento obrigatório"
-                    value="#{profissaoBean.profissao.descricao}"
-                    pt:placeholder="Informe a descrição"
-            />
-
-            <h:commandButton
-                    styleClass="limpar"
-                    type="reset"
-                    action="#{profissaoBean.limpar()}"
-                    value="Limpar"/>
-            <h:commandButton
-                    styleClass="cadastrar"
-                    action="#{profissaoBean.salvar()}"
-                    value="Salvar"/>
-
-        </h:form>
-
-        <h:form>
-            <h:dataTable
-                    value="#{profissaoBean.profissaos}"
-                    var="p">
-
-                <h:column>
-                    <f:facet name="header">Id:</f:facet>
-                    <h:outputText value="#{p.id}"/>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Descrição:</f:facet>
-                    <h:outputText value="#{p.descricao}"/>
-                </h:column>
-
-                <h:column headerClass="coluna-acoes">
-                    <f:facet name="header">Acões</f:facet>
-                    <h:commandButton
-                            image="resources/imagens/edit-32x32.png">
-                        <f:setPropertyActionListener
-                                target="#{profissaoBean.profissao}"
-                                value="#{p}"/>
-                    </h:commandButton>
-                    <h:commandButton
-                            image="resources/imagens/remove-32x32.png"
-                            action="#{profissaoBean.remover}">
-                        <f:setPropertyActionListener
-                                target="#{profissaoBean.profissao}"
-                                value="#{p}"/>
-                    </h:commandButton>
-                </h:column>
-            </h:dataTable>
-        </h:form>
-
+    <div id="menu">
+        <ui:insert name="menu" >
+            <ui:include src="navbar.xhtml" />
+        </ui:insert>
     </div>
+
+    <h1 style="text-align: center;">Cadastro de Profissões</h1>
+
+    <h:form>
+        <div class="ui-fluid">
+            <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-2 ui-lg-1 , ui-g-8 ui-md-10 ui-lg-11">
+                <p:outputLabel for="descricao" value="Descricao: "/>
+                <p:inputText
+                        id="descricao"
+                        required="true"
+                        requiredMessage="Campo com preenchimento obrigatório"
+                        value="#{profissaoBean.profissao.descricao}"
+                        placeholder="Informe a descrição"
+                />
+            </p:panelGrid>
+        </div>
+        <p:spacer height="10px"/>
+
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton
+                        type="reset"
+                        ajax="false"
+                        icon="fa fa-eraser"
+                        action="#{profissaoBean.limpar()}"
+                        value="Limpar"/>
+                <p:commandButton
+                        ajax="false"
+                        icon="fa fa-save"
+                        action="#{profissaoBean.salvar()}"
+                        value="Salvar"/>
+            </f:facet>
+        </p:toolbar>
+    </h:form>
+
+    <p:spacer height="10px"/>
+
+    <h:form>
+        <p:dataTable
+                value="#{profissaoBean.profissaos}"
+                var="p">
+
+            <p:column headerText="Id:">
+                <h:outputText value="#{p.id}"/>
+            </p:column>
+
+            <p:column headerText="Descricao:">
+                <h:outputText value="#{p.descricao}"/>
+            </p:column>
+
+            <p:column headerText="Acões:">
+                <p:commandButton
+                        ajax="false"
+                        icon="fa fa-pencil">
+                    <f:setPropertyActionListener
+                            target="#{profissaoBean.profissao}"
+                            value="#{p}"/>
+                </p:commandButton>
+                <p:commandButton
+                        ajax="false"
+                        icon="fa fa-trash"
+                        action="#{profissaoBean.remover}">
+                    <f:setPropertyActionListener
+                            target="#{profissaoBean.profissao}"
+                            value="#{p}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
 
 </h:body>
 </html>

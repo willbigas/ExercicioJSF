@@ -9,14 +9,19 @@
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Cadastro de Pessoas</title>
-    <h:outputStylesheet library="css" name="growl.css"/>
+
     <h:outputScript library="js" name="locale-primefaces.js"/>
 </h:head>
 <h:body>
 
     <p:growl sticky="true"/>
 
-    <h1>Cadastro de Pessoas</h1>
+    <div id="menu">
+        <ui:insert name="menu" >
+            <ui:include src="navbar.xhtml" />
+        </ui:insert>
+    </div>
+    <h1 style="text-align: center;">Cadastro de Pessoas</h1>
     <h:form>
         <div class="ui-fluid">
             <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
@@ -107,12 +112,14 @@
 
             <p:column>
                 <p:commandButton
+                        ajax="false"
                         icon="fa fa-pencil">
                     <f:setPropertyActionListener
                             target="#{pessoaBean.pessoa}"
                             value="#{p}"/>
                 </p:commandButton>
                 <p:commandButton
+                        ajax="false"
                         icon="fa fa-trash"
                         action="#{pessoaBean.remover}">
                     <f:setPropertyActionListener
