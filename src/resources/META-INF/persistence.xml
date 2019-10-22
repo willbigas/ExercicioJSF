@@ -9,6 +9,9 @@
         <!-- Mapeamento de classes -->
         <class>model.Pessoa</class>
         <class>model.Profissao</class>
+        <class>model.Usuario</class>
+
+        <!--#Mapeamento de classes -->
 
 
         <properties>
