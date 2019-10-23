@@ -11,6 +11,8 @@ public class Usuario implements IBaseModel {
     private String login;
     private String senha;
 
+    private String perfilUsuario;
+
     @OneToOne
     private Pessoa pessoa;
 
@@ -46,5 +48,13 @@ public class Usuario implements IBaseModel {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public String getPerfilUsuario() {
+        return perfilUsuario;
+    }
+
+    public void setPerfilUsuario(String perfilUsuario) {
+        this.perfilUsuario = perfilUsuario;
     }
 }

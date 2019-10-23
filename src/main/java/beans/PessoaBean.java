@@ -1,23 +1,18 @@
 package beans;
 
 
-import beans.util.Mensagens;
 import dao.PessoaDao;
 import dao.ProfissaoDao;
 import interfaces.IBaseDao;
 import model.Pessoa;
 import model.Profissao;
-import util.UtilDate;
+import util.Mensagem;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -44,10 +39,10 @@ public class PessoaBean implements Serializable {
     public void salvar() {
         if (pessoa.getId() == null) {
             pessoaDao.salvar(pessoa);
-            Mensagens.sucesso("Pessoa cadastrada com sucesso");
+            Mensagem.addMensagemInfo("pessoaCadastroSucesso");
         } else {
             pessoaDao.alterar(pessoa);
-            Mensagens.sucesso("Pessoa alterada com sucesso!");
+            Mensagem.addMensagemError("pessoaCadastroErro");
         }
         limpar();
         atualizar();
@@ -60,7 +55,7 @@ public class PessoaBean implements Serializable {
         pessoaDao.excluir(pessoa);
         atualizar();
         limpar();
-        Mensagens.sucesso("Pessoa excluida com sucesso!");
+        Mensagem.addMensagemInfo("pessoaExclusaoSucesso");
     }
 
     public void atualizar() {
