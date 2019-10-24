@@ -12,3 +12,13 @@
     width: 120px;
     text-align: center;
 }
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.year-spinner input {
+    width: 100%;
+    box-sizing: border-box;
+}

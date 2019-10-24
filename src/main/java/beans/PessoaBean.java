@@ -45,7 +45,7 @@ public class PessoaBean implements Serializable {
             Mensagem.addMensagemInfo("pessoaCadastroSucesso");
         } else {
             pessoaDao.alterar(pessoa);
-            Mensagem.addMensagemError("pessoaCadastroSucesso");
+            Mensagem.addMensagemInfo("pessoaAlteradoSucesso");
         }
         limpar();
         atualizar();

@@ -76,7 +76,7 @@
                         action="#{pessoaBean.limpar()}"
                         value="Limpar"/>
                 <p:commandButton
-                        update="formDataTable"
+                        update="formDataTable formCadastro"
                         icon="fa fa-save"
                         action="#{pessoaBean.salvar()}"
                         value="Salvar"/>
@@ -94,6 +94,7 @@
                 paginatorPosition="bottom"
                 rows="5"
                 reflow="true"
+                widgetVar="tabela-principal"
                 value="#{pessoaBean.pessoas}"
                 var="p">
 
@@ -107,6 +108,8 @@
 
             <p:column
                     headerText="Email"
+                    filterBy="#{p.email}"
+                    filterMatchMode="contains"
                     sortBy="#{p.email}">
                 <h:outputText value="#{p.email}"/>
             </p:column>
@@ -122,15 +125,38 @@
 
             <p:column
                     headerText="Idade"
+                    filterBy="#{p.idade}"
+                    filterMatchMode="lte"
                     styleClass="pessoa-coluna-idade"
                     sortBy="#{p.idade}">
+                <f:facet name="filter">
+                    <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
+                        <f:converter converterId="javax.faces.Integer" />
+                    </p:spinner>
+                </f:facet>
                 <h:outputText value="#{p.idade}"/>
             </p:column>
 
             <p:column
                     headerText="Profissão"
+                    filterBy="#{p.profissao}"
+                    filterMatchMode="equals"
                     sortBy="#{p.profissao.descricao}">
+                <f:facet name="filter">
+                    <p:selectOneMenu
+                            styleClass="custom-filter"
+                            onchange="PF('tabela-principal').filter()"
+                            value="#{pessoaBean.pessoa.profissao}">
+                        <f:selectItem
+                                noSelectionOption="true"
+                                itemLabel="Selecione uma Profissão..."/>
+                        <f:selectItems
+                                value="#{pessoaBean.profissaos}"
+                                var="pr" itemLabel="#{pr.descricao}"/>
+                    </p:selectOneMenu>
+                </f:facet>
                 <h:outputText value="#{p.profissao.descricao}"/>
+
             </p:column>
 
             <p:column
