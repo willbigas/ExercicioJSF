@@ -22,3 +22,8 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.tabela-exportacoes {
+    float: right;
+    padding-top: 2px;
+}

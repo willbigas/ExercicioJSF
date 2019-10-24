@@ -87,9 +87,10 @@
 
     <h:form id="formDataTable">
         <p:dataTable
+                id="tablePessoas"
                 filteredValue="#{pessoaBean.pessoasFiltro}"
                 paginator="true"
-                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                 rowsPerPageTemplate="5,10,15"
                 paginatorPosition="bottom"
                 rows="5"
@@ -97,6 +98,31 @@
                 widgetVar="tabela-principal"
                 value="#{pessoaBean.pessoas}"
                 var="p">
+
+            <f:facet name="{Exporters}">
+                <div class="tabela-exportacoes">
+                    <h:commandLink>
+                        <p:graphicImage library="imagens" name="excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="tablePessoas" fileName="pessoas"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage library="imagens" name="pdf.png" width="24"/>
+                        <p:dataExporter type="pdf" target="tablePessoas" fileName="pessoas"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage library="imagens" name="csv.png" width="24"/>
+                        <p:dataExporter type="csv" target="tablePessoas" fileName="pessoas"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage library="imagens" name="xml.png" width="24"/>
+                        <p:dataExporter type="xml" target="tablePessoas" fileName="pessoas"/>
+                    </h:commandLink>
+                </div>
+
+            </f:facet>
 
             <p:column
                     headerText="Nome"
@@ -131,7 +157,7 @@
                     sortBy="#{p.idade}">
                 <f:facet name="filter">
                     <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
-                        <f:converter converterId="javax.faces.Integer" />
+                        <f:converter converterId="javax.faces.Integer"/>
                     </p:spinner>
                 </f:facet>
                 <h:outputText value="#{p.idade}"/>
@@ -161,7 +187,8 @@
 
             <p:column
                     headerText="Ações"
-                    styleClass="pessoa-coluna-acoes">
+                    styleClass="pessoa-coluna-acoes"
+                    exportable="false">
                 <p:commandButton
                         update="formCadastro"
                         icon="fa fa-pencil">
