@@ -9,20 +9,22 @@
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Cadastro de Pessoas</title>
-
+    <h:outputStylesheet library="css" name="style.css"/>
     <h:outputScript library="js" name="locale-primefaces.js"/>
 </h:head>
 <h:body>
 
-    <p:growl sticky="true"/>
+    <p:growl sticky="true">
+        <p:autoUpdate/>
+    </p:growl>
 
     <div id="menu">
-        <ui:insert name="menu" >
-            <ui:include src="navbar.xhtml" />
+        <ui:insert name="menu">
+            <ui:include src="navbar.xhtml"/>
         </ui:insert>
     </div>
     <h1 style="text-align: center;">Cadastro de Pessoas</h1>
-    <h:form>
+    <h:form id="formCadastro">
         <div class="ui-fluid">
             <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                          styleClass="ui-panelgrid-blank">
@@ -48,7 +50,11 @@
 
                 <p:outputLabel for="nascimento" value="Nascimento: "/>
                 <p:calendar id="nascimento"
+                            yearRange="c-100:c+0"
+                            widgetVar="calWidget"
+                            maxdate="calWidget.today()"
                             pattern="dd/MM/yyyy"
+                            navigator="true"
                             timeZone="#{initParam.timezone}"
                             mask="true"
                             locale="pt_BR"
@@ -65,12 +71,12 @@
             <f:facet name="left">
                 <p:commandButton
                         type="reset"
-                        ajax="false"
+                        update="@form"
                         icon="fa fa-eraser"
                         action="#{pessoaBean.limpar()}"
                         value="Limpar"/>
                 <p:commandButton
-                        ajax="false"
+                        update="formDataTable"
                         icon="fa fa-save"
                         action="#{pessoaBean.salvar()}"
                         value="Salvar"/>
@@ -79,54 +85,82 @@
     </h:form>
     <p:spacer height="10px"/>
 
-    <h:form>
+    <h:form id="formDataTable">
         <p:dataTable
+                filteredValue="#{pessoaBean.pessoasFiltro}"
+                paginator="true"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                paginatorPosition="bottom"
+                rows="5"
                 reflow="true"
                 value="#{pessoaBean.pessoas}"
                 var="p">
 
-            <p:column headerText="Nome">
+            <p:column
+                    headerText="Nome"
+                    filterBy="#{p.nome}"
+                    filterMatchMode="contains"
+                    sortBy="#{p.nome}">
                 <h:outputText value="#{p.nome}"/>
             </p:column>
 
-            <p:column headerText="Email">
+            <p:column
+                    headerText="Email"
+                    sortBy="#{p.email}">
                 <h:outputText value="#{p.email}"/>
             </p:column>
 
-            <p:column headerText="Nascimento">
+            <p:column
+                    headerText="Nascimento"
+                    styleClass="pessoa-coluna-nascimento"
+                    sortBy="#{p.nascimento}">
                 <h:outputText value="#{p.nascimento}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:outputText>
             </p:column>
 
-            <p:column headerText="Idade">
-                <f:facet name="header">Idade</f:facet>
+            <p:column
+                    headerText="Idade"
+                    styleClass="pessoa-coluna-idade"
+                    sortBy="#{p.idade}">
                 <h:outputText value="#{p.idade}"/>
             </p:column>
 
-            <p:column headerText="Profissão">
-                <f:facet name="header">Profissão</f:facet>
+            <p:column
+                    headerText="Profissão"
+                    sortBy="#{p.profissao.descricao}">
                 <h:outputText value="#{p.profissao.descricao}"/>
             </p:column>
 
-            <p:column>
+            <p:column
+                    headerText="Ações"
+                    styleClass="pessoa-coluna-acoes">
                 <p:commandButton
-                        ajax="false"
+                        update="formCadastro"
                         icon="fa fa-pencil">
                     <f:setPropertyActionListener
                             target="#{pessoaBean.pessoa}"
                             value="#{p}"/>
                 </p:commandButton>
                 <p:commandButton
-                        ajax="false"
-                        icon="fa fa-trash"
-                        action="#{pessoaBean.remover}">
+                        onclick="PF('dialog-excluir').show();"
+                        update="@form"
+                        icon="fa fa-trash">
                     <f:setPropertyActionListener
                             target="#{pessoaBean.pessoa}"
                             value="#{p}"/>
                 </p:commandButton>
             </p:column>
         </p:dataTable>
+    </h:form>
+
+    <h:form>
+        <p:dialog header="Excluir Pessoa" widgetVar="dialog-excluir" modal="true" height="100">
+            <h:outputText value="Deseja excluir a pessoa #{p.nome} ? "/>
+            <p:commandButton value="Excluir" action="#{pessoaBean.remover}"/>
+            <p:commandButton value="Voltar" onclick="PF('dialog-excluir').hide();"/>
+        </p:dialog>
     </h:form>
 
 </h:body>

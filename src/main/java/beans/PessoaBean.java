@@ -21,9 +21,12 @@ public class PessoaBean implements Serializable {
 
     private Pessoa pessoa;
     private List<Pessoa> pessoas;
+    private List<Pessoa> pessoasFiltro;
     private List<Profissao> profissaos;
     private IBaseDao<Pessoa> pessoaDao;
     private IBaseDao<Profissao> profissaoDao;
+
+
 
     @PostConstruct
     public void init() {
@@ -42,7 +45,7 @@ public class PessoaBean implements Serializable {
             Mensagem.addMensagemInfo("pessoaCadastroSucesso");
         } else {
             pessoaDao.alterar(pessoa);
-            Mensagem.addMensagemError("pessoaCadastroErro");
+            Mensagem.addMensagemError("pessoaCadastroSucesso");
         }
         limpar();
         atualizar();
@@ -90,5 +93,13 @@ public class PessoaBean implements Serializable {
 
     public void setProfissaos(List<Profissao> profissaos) {
         this.profissaos = profissaos;
+    }
+
+    public List<Pessoa> getPessoasFiltro() {
+        return pessoasFiltro;
+    }
+
+    public void setPessoasFiltro(List<Pessoa> pessoasFiltro) {
+        this.pessoasFiltro = pessoasFiltro;
     }
 }

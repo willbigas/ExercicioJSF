@@ -3,6 +3,7 @@ package beans;
 import dao.ProfissaoDao;
 import interfaces.IBaseDao;
 import model.Profissao;
+import util.Mensagem;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class ProfissaoBean  implements Serializable {
+public class ProfissaoBean implements Serializable {
 
     public Profissao profissao;
     private List<Profissao> profissaos;
@@ -34,8 +35,10 @@ public class ProfissaoBean  implements Serializable {
     public void salvar() {
         if (profissao.getId() == null) {
             profissaoDao.salvar(profissao);
+            Mensagem.addMensagemInfo("profissaoCadastroSucesso");
         } else {
             profissaoDao.alterar(profissao);
+            Mensagem.addMensagemInfo("profissaoCadastroErro");
         }
         limpar();
         atualizar();
@@ -48,10 +51,7 @@ public class ProfissaoBean  implements Serializable {
         profissaoDao.excluir(profissao);
         atualizar();
         limpar();
-        FacesMessage mensagem = new FacesMessage();
-        mensagem.setSummary("Profissao excluida com sucesso!");
-        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        Mensagem.addMensagemInfo("profissaoDeletarSucesso");
     }
 
     public void atualizar() {
