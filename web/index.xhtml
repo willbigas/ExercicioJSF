@@ -103,7 +103,7 @@
                 <div class="tabela-exportacoes">
                     <h:commandLink>
                         <p:graphicImage library="imagens" name="excel.png" width="24"/>
-                        <p:dataExporter type="xls" target="tablePessoas" fileName="pessoas"/>
+                        <p:dataExporter type="xlsx" target="tablePessoas" fileName="pessoas"/>
                     </h:commandLink>
 
                     <h:commandLink>
@@ -197,8 +197,8 @@
                             value="#{p}"/>
                 </p:commandButton>
                 <p:commandButton
-                        onclick="PF('dialog-excluir').show();"
-                        update="@form"
+                        update="formDataTable:confirmDialog"
+                        oncomplete="PF('confirmDialog').show();"
                         icon="fa fa-trash">
                     <f:setPropertyActionListener
                             target="#{pessoaBean.pessoa}"
@@ -206,14 +206,28 @@
                 </p:commandButton>
             </p:column>
         </p:dataTable>
-    </h:form>
 
-    <h:form>
-        <p:dialog header="Excluir Pessoa" widgetVar="dialog-excluir" modal="true" height="100">
-            <h:outputText value="Deseja excluir a pessoa #{p.nome} ? "/>
-            <p:commandButton value="Excluir" action="#{pessoaBean.remover}"/>
-            <p:commandButton value="Voltar" onclick="PF('dialog-excluir').hide();"/>
-        </p:dialog>
+        <p:confirmDialog
+                id="confirmDialog"
+                header="Atenção!"
+                message="Deseja realmente excluir esta pessoa? #{pessoaBean.pessoa.nome}"
+                widgetVar="confirmDialog"
+                showEffect="fade"
+                hideEffect="fade"
+                closable="false"
+                closeOnEscape="true">
+            <p:commandButton
+                    value="Sim"
+                    icon="fa fa-check"
+                    update="@form"
+                    action="#{pessoaBean.remover}"
+                    oncomplete="PF('confirmDialog').hide()">
+            </p:commandButton>
+            <p:button
+                    value="Não"
+                    icon="fa fa-times"
+                    onclick="PF('confirmDialog').hide(); return false"/>
+        </p:confirmDialog>
     </h:form>
 
 </h:body>
