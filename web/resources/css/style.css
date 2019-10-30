@@ -27,3 +27,8 @@
     float: right;
     padding-top: 2px;
 }
+
+.ui-menuitem-icon {
+    text-align: center;
+    margin-right: 2px;
+}

@@ -8,11 +8,11 @@
       xmlns:p="http://primefaces.org/ui">
 <h:body>
 
-    <ui:composition>
         <h:form>
             <p:menubar>
                 <p:menuitem value="Pessoas" outcome="/index.html" icon="fa fa-user"/>
                 <p:menuitem value="Profissões" outcome="/cadastro-profissao.xhtml" icon="fa fa-graduation-cap"/>
+                <p:menuitem value="Dashboard" outcome="/dashboard.xhtml" icon="fa fa-bar-chart"/>
 
                 <f:facet name="options">
                     <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Buscar..."/>
@@ -20,7 +20,8 @@
                 </f:facet>
             </p:menubar>
         </h:form>
-    </ui:composition>
+
+    <p:spacer height="30"/>
 
 
 </h:body>

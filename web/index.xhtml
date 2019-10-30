@@ -1,234 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Cadastro de Pessoas</title>
-    <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputScript library="js" name="locale-primefaces.js"/>
-</h:head>
-<h:body>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-    <p:growl sticky="true">
-        <p:autoUpdate/>
-    </p:growl>
+    <ui:define name="titulo">Cadastro de Pessoas</ui:define>
 
-    <div id="menu">
-        <ui:insert name="menu">
-            <ui:include src="navbar.xhtml"/>
-        </ui:insert>
-    </div>
-    <h1 style="text-align: center;">Cadastro de Pessoas</h1>
-    <h:form id="formCadastro">
-        <div class="ui-fluid">
-            <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
-                         styleClass="ui-panelgrid-blank">
-                <p:outputLabel for="profissao" value="Profissão:"/>
-                <p:selectOneMenu id="profissao" value="#{pessoaBean.pessoa.profissao}">
-                    <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Profissão..."/>
-                    <f:selectItems value="#{pessoaBean.profissaos}" var="pr" itemLabel="#{pr.descricao}"/>
-                </p:selectOneMenu>
-                <p:outputLabel for="nome" value="Nome: "/>
-                <p:inputText
-                        id="nome"
-                        required="true"
-                        requiredMessage="Nome deve ser preenchido"
-                        value="#{pessoaBean.pessoa.nome}" placeholder="Informe seu nome"
-                />
-                <p:outputLabel for="email" value="Email: "/>
-                <p:inputText id="email"
-                             required="true"
-                             validator="emailValidator"
-                             requiredMessage="Email deve ser preenchido"
-                             value="#{pessoaBean.pessoa.email}"
-                             placeholder="Informe seu e-mail"/>
 
-                <p:outputLabel for="nascimento" value="Nascimento: "/>
-                <p:calendar id="nascimento"
-                            yearRange="c-100:c+0"
-                            widgetVar="calWidget"
-                            maxdate="calWidget.today()"
-                            pattern="dd/MM/yyyy"
-                            navigator="true"
-                            timeZone="#{initParam.timezone}"
-                            mask="true"
-                            locale="pt_BR"
-                            required="true"
-                            requiredMessage="Nascimento deve ser preenchido"
-                            converterMessage="Data no formato invalido. Use: dd/mm/aaaa"
-                            value="#{pessoaBean.pessoa.nascimento}"
-                            placeholder="dd/mm/aaaa">
-                </p:calendar>
-            </p:panelGrid>
-        </div>
-        <p:spacer height="10px"/>
-        <p:toolbar>
-            <f:facet name="left">
-                <p:commandButton
-                        type="reset"
-                        update="@form"
-                        icon="fa fa-eraser"
-                        action="#{pessoaBean.limpar()}"
-                        value="Limpar"/>
-                <p:commandButton
-                        update="formDataTable formCadastro"
-                        icon="fa fa-save"
-                        action="#{pessoaBean.salvar()}"
-                        value="Salvar"/>
-            </f:facet>
-        </p:toolbar>
-    </h:form>
-    <p:spacer height="10px"/>
+    <ui:define name="conteudo">
 
-    <h:form id="formDataTable">
-        <p:dataTable
-                id="tablePessoas"
-                filteredValue="#{pessoaBean.pessoasFiltro}"
-                paginator="true"
-                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-                rowsPerPageTemplate="5,10,15"
-                paginatorPosition="bottom"
-                rows="5"
-                reflow="true"
-                widgetVar="tabela-principal"
-                value="#{pessoaBean.pessoas}"
-                var="p">
+        <p:growl sticky="true">
+            <p:autoUpdate/>
+        </p:growl>
 
-            <f:facet name="{Exporters}">
-                <div class="tabela-exportacoes">
-                    <h:commandLink>
-                        <p:graphicImage library="imagens" name="excel.png" width="24"/>
-                        <p:dataExporter type="xlsx" target="tablePessoas" fileName="pessoas"/>
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage library="imagens" name="pdf.png" width="24"/>
-                        <p:dataExporter type="pdf" target="tablePessoas" fileName="pessoas"/>
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage library="imagens" name="csv.png" width="24"/>
-                        <p:dataExporter type="csv" target="tablePessoas" fileName="pessoas"/>
-                    </h:commandLink>
-
-                    <h:commandLink>
-                        <p:graphicImage library="imagens" name="xml.png" width="24"/>
-                        <p:dataExporter type="xml" target="tablePessoas" fileName="pessoas"/>
-                    </h:commandLink>
-                </div>
-
-            </f:facet>
-
-            <p:column
-                    headerText="Nome"
-                    filterBy="#{p.nome}"
-                    filterMatchMode="contains"
-                    sortBy="#{p.nome}">
-                <h:outputText value="#{p.nome}"/>
-            </p:column>
-
-            <p:column
-                    headerText="Email"
-                    filterBy="#{p.email}"
-                    filterMatchMode="contains"
-                    sortBy="#{p.email}">
-                <h:outputText value="#{p.email}"/>
-            </p:column>
-
-            <p:column
-                    headerText="Nascimento"
-                    styleClass="pessoa-coluna-nascimento"
-                    sortBy="#{p.nascimento}">
-                <h:outputText value="#{p.nascimento}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:outputText>
-            </p:column>
-
-            <p:column
-                    headerText="Idade"
-                    filterBy="#{p.idade}"
-                    filterMatchMode="lte"
-                    styleClass="pessoa-coluna-idade"
-                    sortBy="#{p.idade}">
-                <f:facet name="filter">
-                    <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
-                        <f:converter converterId="javax.faces.Integer"/>
-                    </p:spinner>
-                </f:facet>
-                <h:outputText value="#{p.idade}"/>
-            </p:column>
-
-            <p:column
-                    headerText="Profissão"
-                    filterBy="#{p.profissao}"
-                    filterMatchMode="equals"
-                    sortBy="#{p.profissao.descricao}">
-                <f:facet name="filter">
-                    <p:selectOneMenu
-                            styleClass="custom-filter"
-                            onchange="PF('tabela-principal').filter()"
-                            value="#{pessoaBean.pessoa.profissao}">
-                        <f:selectItem
-                                noSelectionOption="true"
-                                itemLabel="Selecione uma Profissão..."/>
-                        <f:selectItems
-                                value="#{pessoaBean.profissaos}"
-                                var="pr" itemLabel="#{pr.descricao}"/>
+        <h1 style="text-align: center;">Cadastro de Pessoas</h1>
+        <h:form id="formCadastro">
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel for="profissao" value="Profissão:"/>
+                    <p:selectOneMenu id="profissao" value="#{pessoaBean.pessoa.profissao}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Profissão..."/>
+                        <f:selectItems value="#{pessoaBean.profissaos}" var="pr" itemLabel="#{pr.descricao}"/>
                     </p:selectOneMenu>
+                    <p:outputLabel for="nome" value="Nome: "/>
+                    <p:inputText
+                            id="nome"
+                            required="true"
+                            requiredMessage="Nome deve ser preenchido"
+                            value="#{pessoaBean.pessoa.nome}" placeholder="Informe seu nome"
+                    />
+                    <p:outputLabel for="email" value="Email: "/>
+                    <p:inputText id="email"
+                                 required="true"
+                                 validator="emailValidator"
+                                 requiredMessage="Email deve ser preenchido"
+                                 value="#{pessoaBean.pessoa.email}"
+                                 placeholder="Informe seu e-mail"/>
+
+                    <p:outputLabel for="nascimento" value="Nascimento: "/>
+                    <p:calendar id="nascimento"
+                                yearRange="c-100:c+0"
+                                widgetVar="calWidget"
+                                maxdate="calWidget.today()"
+                                pattern="dd/MM/yyyy"
+                                navigator="true"
+                                timeZone="#{initParam.timezone}"
+                                mask="true"
+                                locale="pt_BR"
+                                required="true"
+                                requiredMessage="Nascimento deve ser preenchido"
+                                converterMessage="Data no formato invalido. Use: dd/mm/aaaa"
+                                value="#{pessoaBean.pessoa.nascimento}"
+                                placeholder="dd/mm/aaaa">
+                    </p:calendar>
+                </p:panelGrid>
+            </div>
+            <p:spacer height="10px"/>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton
+                            type="reset"
+                            update="@form"
+                            icon="fa fa-eraser"
+                            action="#{pessoaBean.limpar()}"
+                            value="Limpar"/>
+                    <p:commandButton
+                            update="formDataTable formCadastro"
+                            icon="fa fa-save"
+                            action="#{pessoaBean.salvar()}"
+                            value="Salvar"/>
                 </f:facet>
-                <h:outputText value="#{p.profissao.descricao}"/>
+            </p:toolbar>
+        </h:form>
+        <p:spacer height="10px"/>
 
-            </p:column>
+        <h:form id="formDataTable">
+            <p:dataTable
+                    id="tablePessoas"
+                    filteredValue="#{pessoaBean.pessoasFiltro}"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                    rowsPerPageTemplate="5,10,15"
+                    paginatorPosition="bottom"
+                    rows="5"
+                    reflow="true"
+                    widgetVar="tabela-principal"
+                    value="#{pessoaBean.pessoas}"
+                    var="p">
 
-            <p:column
-                    headerText="Ações"
-                    styleClass="pessoa-coluna-acoes"
-                    exportable="false">
+                <f:facet name="{Exporters}">
+                    <div class="tabela-exportacoes">
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="excel.png" width="24"/>
+                            <p:dataExporter type="xlsx" target="tablePessoas" fileName="pessoas"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="tablePessoas" fileName="pessoas"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="tablePessoas" fileName="pessoas"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="tablePessoas" fileName="pessoas"/>
+                        </h:commandLink>
+                    </div>
+
+                </f:facet>
+
+                <p:column
+                        headerText="Nome"
+                        filterBy="#{p.nome}"
+                        filterMatchMode="contains"
+                        sortBy="#{p.nome}">
+                    <h:outputText value="#{p.nome}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Email"
+                        filterBy="#{p.email}"
+                        filterMatchMode="contains"
+                        sortBy="#{p.email}">
+                    <h:outputText value="#{p.email}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Nascimento"
+                        styleClass="pessoa-coluna-nascimento"
+                        sortBy="#{p.nascimento}">
+                    <h:outputText value="#{p.nascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column
+                        headerText="Idade"
+                        filterBy="#{p.idade}"
+                        filterMatchMode="lte"
+                        styleClass="pessoa-coluna-idade"
+                        sortBy="#{p.idade}">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer"/>
+                        </p:spinner>
+                    </f:facet>
+                    <h:outputText value="#{p.idade}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Profissão"
+                        filterBy="#{p.profissao}"
+                        filterMatchMode="equals"
+                        sortBy="#{p.profissao.descricao}">
+                    <f:facet name="filter">
+                        <p:selectOneMenu
+                                styleClass="custom-filter"
+                                onchange="PF('tabela-principal').filter()"
+                                value="#{pessoaBean.pessoa.profissao}">
+                            <f:selectItem
+                                    noSelectionOption="true"
+                                    itemLabel="Selecione uma Profissão..."/>
+                            <f:selectItems
+                                    value="#{pessoaBean.profissaos}"
+                                    var="pr" itemLabel="#{pr.descricao}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                    <h:outputText value="#{p.profissao.descricao}"/>
+
+                </p:column>
+
+                <p:column
+                        headerText="Ações"
+                        styleClass="pessoa-coluna-acoes"
+                        exportable="false">
+                    <p:commandButton
+                            update="formCadastro"
+                            icon="fa fa-pencil">
+                        <f:setPropertyActionListener
+                                target="#{pessoaBean.pessoa}"
+                                value="#{p}"/>
+                    </p:commandButton>
+                    <p:commandButton
+                            update="formDataTable:confirmDialog"
+                            oncomplete="PF('confirmDialog').show();"
+                            icon="fa fa-trash">
+                        <f:setPropertyActionListener
+                                target="#{pessoaBean.pessoa}"
+                                value="#{p}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:confirmDialog
+                    id="confirmDialog"
+                    header="Atenção!"
+                    message="Deseja realmente excluir esta pessoa? #{pessoaBean.pessoa.nome}"
+                    widgetVar="confirmDialog"
+                    showEffect="fade"
+                    hideEffect="fade"
+                    closable="false"
+                    closeOnEscape="true">
                 <p:commandButton
-                        update="formCadastro"
-                        icon="fa fa-pencil">
-                    <f:setPropertyActionListener
-                            target="#{pessoaBean.pessoa}"
-                            value="#{p}"/>
+                        value="Sim"
+                        icon="fa fa-check"
+                        update="@form"
+                        action="#{pessoaBean.remover}"
+                        oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
-                <p:commandButton
-                        update="formDataTable:confirmDialog"
-                        oncomplete="PF('confirmDialog').show();"
-                        icon="fa fa-trash">
-                    <f:setPropertyActionListener
-                            target="#{pessoaBean.pessoa}"
-                            value="#{p}"/>
-                </p:commandButton>
-            </p:column>
-        </p:dataTable>
+                <p:button
+                        value="Não"
+                        icon="fa fa-times"
+                        onclick="PF('confirmDialog').hide(); return false"/>
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
 
-        <p:confirmDialog
-                id="confirmDialog"
-                header="Atenção!"
-                message="Deseja realmente excluir esta pessoa? #{pessoaBean.pessoa.nome}"
-                widgetVar="confirmDialog"
-                showEffect="fade"
-                hideEffect="fade"
-                closable="false"
-                closeOnEscape="true">
-            <p:commandButton
-                    value="Sim"
-                    icon="fa fa-check"
-                    update="@form"
-                    action="#{pessoaBean.remover}"
-                    oncomplete="PF('confirmDialog').hide()">
-            </p:commandButton>
-            <p:button
-                    value="Não"
-                    icon="fa fa-times"
-                    onclick="PF('confirmDialog').hide(); return false"/>
-        </p:confirmDialog>
-    </h:form>
-
-</h:body>
-</html>
+</ui:composition>
