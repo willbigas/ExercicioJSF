@@ -13,10 +13,25 @@
             <p:autoUpdate/>
         </p:growl>
 
-      <ui:insert name="menu"></ui:insert>
+        <ui:insert name="menu"></ui:insert>
         <h1 style="text-align: center;">Dashboard</h1>
+        <div class="ui-g">
 
-        <p:pieChart model="#{dashboardBean.pessoasPorProfissaoModel}"/>
+            <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-3">
+                <p:pieChart model="#{dashboardBean.pessoasPorProfissaoModel}"/>
+            </div>
+            <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-3">
+                <p:pieChart model="#{dashboardBean.pessoasPorProfissaoModel}"/>
+            </div>
+            <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-3">
+                <p:pieChart model="#{dashboardBean.pessoasPorProfissaoModel}"/>
+            </div>
+            <div class="ui-g-12 ui-sm-12 ui-md-6 ui-lg-3">
+                <p:pieChart model="#{dashboardBean.pessoasPorProfissaoModel}"/>
+            </div>
+
+
+        </div>
     </ui:define>
 
 </ui:composition>

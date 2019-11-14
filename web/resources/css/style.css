@@ -32,3 +32,18 @@
     text-align: center;
     margin-right: 2px;
 }
+
+.ui-chart {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem {
+    display: flex;
+}
+
+.bandeira-idioma {
+    width: 30px;
+    margin-right: 20px;
+
+}
