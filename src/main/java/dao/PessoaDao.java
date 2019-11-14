@@ -27,7 +27,7 @@ public class PessoaDao extends BaseDao<Pessoa> {
         List<PessoasPorProfissaoDTO> resultado = query.getResultList();
         manager.close();
 
-        return null;
+        return resultado;
     }
 
 }
