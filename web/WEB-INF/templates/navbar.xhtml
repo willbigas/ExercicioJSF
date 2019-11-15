@@ -19,12 +19,18 @@
                             styleClass="bandeira-idioma"
                             title="Inglês"
                             image="/resources/imagens/england-flag.png">
+                        <f:setPropertyActionListener
+                                target="#{idiomaBean.idiomaSelecionado}"
+                                value="en_US"/>
 
                     </h:commandButton>
                     <h:commandButton
                             styleClass="bandeira-idioma"
                             title="Português"
                             image="/resources/imagens/brazil-flag.png">
+                        <f:setPropertyActionListener
+                                target="#{idiomaBean.idiomaSelecionado}"
+                                value="pt_BR"/>
 
                     </h:commandButton>
                     <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Buscar..."/>
