@@ -8,13 +8,9 @@ public class Usuario implements IBaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
+    private String nome;
+    private String email;
     private String senha;
-
-    private String perfilUsuario;
-
-    @OneToOne
-    private Pessoa pessoa;
 
     @Override
     public Long getId() {
@@ -26,13 +22,6 @@ public class Usuario implements IBaseModel {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getSenha() {
         return senha;
@@ -42,19 +31,19 @@ public class Usuario implements IBaseModel {
         this.senha = senha;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getPerfilUsuario() {
-        return perfilUsuario;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPerfilUsuario(String perfilUsuario) {
-        this.perfilUsuario = perfilUsuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
