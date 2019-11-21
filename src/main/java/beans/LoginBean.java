@@ -3,8 +3,11 @@ package beans;
 import dao.UsuarioDao;
 import model.Usuario;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 @ManagedBean
@@ -24,16 +27,20 @@ public class LoginBean implements Serializable {
         Usuario usuarioLogado = usuarioDao.verificaLogin(email, senha);
 
         if (usuarioLogado == null) {
-            System.out.println("Não logado");
-        } else {
-            System.out.println("Logado");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email ou senha inválido", null);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return "/login.xhtml";
         }
 
-        return "";
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.setAttribute("usuarioLogado", usuarioLogado);
+        return "/paginas/dashboard.xhtml?faces-redirect=true";
     }
 
     public String logout() {
-        return "";
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+        return "/login.xhtml?faces-redirect=true";
     }
 
 

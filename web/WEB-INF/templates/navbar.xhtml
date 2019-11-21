@@ -10,9 +10,9 @@
 
         <h:form>
             <p:menubar>
-                <p:menuitem value="#{messages['menu.pessoa']}" outcome="/index.html" icon="fa fa-user"/>
-                <p:menuitem value="#{messages['menu.profissao']}" outcome="/cadastro-profissao.xhtml" icon="fa fa-graduation-cap"/>
-                <p:menuitem value="#{messages['menu.dashboard']}" outcome="/dashboard.xhtml" icon="fa fa-bar-chart"/>
+                <p:menuitem value="#{messages['menu.pessoa']}" outcome="/paginas/index.html" icon="fa fa-user"/>
+                <p:menuitem value="#{messages['menu.profissao']}" outcome="/paginas/cadastro-profissao.xhtml" icon="fa fa-graduation-cap"/>
+                <p:menuitem value="#{messages['menu.dashboard']}" outcome="/paginas/dashboard.xhtml" icon="fa fa-bar-chart"/>
 
                 <f:facet name="options">
                     <h:commandButton
@@ -34,7 +34,7 @@
 
                     </h:commandButton>
                     <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Buscar..."/>
-                    <p:commandButton type="button" value="Sair" icon="fa fa-sign-out"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Sair" icon="fa fa-sign-out"/>
                 </f:facet>
             </p:menubar>
         </h:form>

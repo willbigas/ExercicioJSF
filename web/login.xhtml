@@ -21,10 +21,9 @@
                 <p:password id="senha" value="#{loginBean.senha}"/>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Login" action="#{loginBean.login}"/>
+                    <p:commandButton update="mensagemLogin" value="Login" action="#{loginBean.login}"/>
                 </f:facet>
             </h:panelGrid>
-
 
         </p:dialog>
 
