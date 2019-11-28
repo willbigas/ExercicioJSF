@@ -1,11 +1,14 @@
 package beans;
 
 
+import beans.lazymodel.PessoaLazyModel;
 import dao.PessoaDao;
 import dao.ProfissaoDao;
 import interfaces.IBaseDao;
 import model.Pessoa;
 import model.Profissao;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import util.Mensagem;
 
 import javax.annotation.PostConstruct;
@@ -14,26 +17,24 @@ import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean
 @ViewScoped
 public class PessoaBean implements Serializable {
 
     private Pessoa pessoa;
-    private List<Pessoa> pessoas;
     private List<Pessoa> pessoasFiltro;
     private List<Profissao> profissaos;
-    private IBaseDao<Pessoa> pessoaDao;
+    private PessoaDao pessoaDao;
     private IBaseDao<Profissao> profissaoDao;
-
-
+    private LazyDataModel<Pessoa> model;
 
     @PostConstruct
     public void init() {
         pessoa = new Pessoa();
         pessoaDao = new PessoaDao();
         profissaoDao = new ProfissaoDao();
-        pessoas = new ArrayList<>();
         profissaos = new ArrayList<>();
         atualizar();
 
@@ -62,8 +63,8 @@ public class PessoaBean implements Serializable {
     }
 
     public void atualizar() {
-        pessoas = pessoaDao.buscarTodos();
         profissaos = profissaoDao.buscarTodos();
+        model = new PessoaLazyModel(pessoaDao);
     }
 
 
@@ -77,14 +78,6 @@ public class PessoaBean implements Serializable {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-    }
-
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     public List<Profissao> getProfissaos() {
@@ -101,5 +94,13 @@ public class PessoaBean implements Serializable {
 
     public void setPessoasFiltro(List<Pessoa> pessoasFiltro) {
         this.pessoasFiltro = pessoasFiltro;
+    }
+
+    public LazyDataModel<Pessoa> getModel() {
+        return model;
+    }
+
+    public void setModel(LazyDataModel<Pessoa> model) {
+        this.model = model;
     }
 }
