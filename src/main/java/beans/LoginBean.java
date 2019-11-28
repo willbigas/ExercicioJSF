@@ -1,7 +1,9 @@
 package beans;
 
 import dao.UsuarioDao;
+import exception.UsuarioNaoEncontratoException;
 import model.Usuario;
+import service.LoginService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,23 +19,24 @@ public class LoginBean implements Serializable {
     private String email;
     private String senha;
 
-    private UsuarioDao usuarioDao;
+    private LoginService loginService;
 
     public LoginBean() {
-        usuarioDao = new UsuarioDao();
+        loginService = new LoginService();
     }
 
     public String login() {
-        Usuario usuarioLogado = usuarioDao.verificaLogin(email, senha);
 
-        if (usuarioLogado == null) {
+
+        try {
+            Usuario usuarioLogado = loginService.verificaLogin(email, senha);
+
+        } catch (UsuarioNaoEncontratoException e) {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email ou senha inválido", null);
             FacesContext.getCurrentInstance().addMessage(null, message);
             return "/login.xhtml";
         }
 
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        session.setAttribute("usuarioLogado", usuarioLogado);
         return "/paginas/dashboard.xhtml?faces-redirect=true";
     }
 
